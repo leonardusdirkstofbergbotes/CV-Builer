@@ -64,6 +64,8 @@ export default {
         },
 
         getLoc () {
+            document.body.classList.add('wait');
+            this.$parent.load = 'yes';
             this.$getLocation({  //pass in options
             enableHighAccuracy: true, 
             timeout: Infinity, 
@@ -79,7 +81,10 @@ export default {
                     console.error(error);
                     alert('GPS location is not available at this time')
                 });
+                this.$parent.load = 'no'
+                document.body.classList.remove('wait');
             });
+            
         }
     }
 }

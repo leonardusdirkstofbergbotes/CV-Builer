@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <img v-if="this.load === 'yes'" id="loader" src='./assets/load.gif'>
     <FRont />
+    
     <div v-if="this.start === 'yes'" class="progWrap">
       <div class="progress"></div>
     </div>
@@ -37,8 +39,10 @@ import html2canvas from 'html2canvas'
 
 export default {
   name: 'App',
+
   data () {
     return {
+      load: 'no',
        start: 'no', // if true: show progress bar and CV
        prog: document.getElementsByClassName('progress'),
         page: '',
@@ -99,21 +103,22 @@ export default {
   },
   methods: {
     createCV () {
-            window.scrollTo(0, 0);
-            setTimeout(function(){ 
-                html2canvas(document.getElementsByClassName('CV')[0]).then(function(canvas) {
-                const a = document.createElement('a');
-                document.body.appendChild(a);
-                a.href = canvas.toDataURL('image/jpeg', 1);
-                a.download = "CV image.jpg";
-                a.click();
-                document.body.removeChild(a);
-              });
-            }, 1500);
-            
-
-           
-        }
+      window.scrollTo(0, 0);
+      document.body.classList.add('wait');
+      setTimeout(function(){ 
+          html2canvas(document.getElementsByClassName('CV')[0]).then(canvas => {
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          a.href = canvas.toDataURL('image/jpeg', 1);
+          a.download = "CV image.jpg";
+          a.click();
+          if (document.body.removeChild(a)) { // when its removed it can change the cursor
+            document.body.classList.remove('wait');
+          }
+        });
+      }, 1500);
+      
+    }
   }
 }
 </script>
@@ -124,12 +129,24 @@ body, html {
   scroll-behavior: smooth;
 }
 
+body.wait {
+  cursor: wait;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 .progWrap {
@@ -194,6 +211,7 @@ body, html {
     text-align: center;
     font-size: 50px;
     margin: 10px;
+    color: #2c3e50;
 }
 
 .inputBox input {
@@ -279,6 +297,7 @@ small {
   font-size: 20px;
   cursor: pointer;
 }
+
 
 @media screen and (max-width: 425px) {
     #wrapper {

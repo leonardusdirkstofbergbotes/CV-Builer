@@ -30,7 +30,7 @@
         </div>
         
         <button @click="setPage" class="next">Next Section</button>
-    
+        
     </div>
 </template>
 
