@@ -16,8 +16,14 @@
       <EXperience />
       <EDucation />
       <LAnguage />
+      <div class="card" v-if="this.page === 'done'">
+        <button class='back' @click="goBack"><img src='./assets/back.svg'>Go back</button>
+        <strong>REVIEW</strong>
+        <hr>
+        <p>If everything is in order go ahead and click on the create JPG to save your newly created CV</p>
+        <button class="final" @click="createCV">Create JPG</button>
+      </div>
       <CV />
-      <button @click="createCV">Create JPG</button>
     </div>
   </div>
 </template>
@@ -114,11 +120,19 @@ export default {
           a.click();
           if (document.body.removeChild(a)) { // when its removed it can change the cursor
             document.body.classList.remove('wait');
+            alert("Please check your downloads");
           }
         });
       }, 1500);
-      
-    }
+    }, 
+
+    goBack () {
+            this.page = 'lang';
+            $(this.prog).animate({
+                width: '-=12.5%'
+            }, 500);
+            window.scrollTo(0, 0);
+        },
   }
 }
 </script>
@@ -298,6 +312,19 @@ small {
   cursor: pointer;
 }
 
+.final {
+  background-color: #f7c40d;
+  padding: 8px;
+  border-radius: 3px;
+  outline: none;
+  border: 2px solid #f7c40d;
+  color: white;
+  font-size: 20px;
+  transition: 0.5s;
+  width: max-content;
+  margin: 15px auto;
+  cursor: pointer;
+}
 
 @media screen and (max-width: 425px) {
     #wrapper {
