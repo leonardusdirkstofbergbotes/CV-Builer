@@ -14,7 +14,9 @@
       <EXperience />
       <EDucation />
       <LAnguage />
+      <DOne />
       <CV />
+      <button @click="createCV">Create JPG</button>
     </div>
   </div>
 </template>
@@ -31,6 +33,8 @@ import EDucation from './components/Education.vue'
 import LAnguage from './components/Language.vue'
 
 import CV from './components/Cv.vue'
+
+import html2canvas from 'html2canvas'
 
 export default {
   name: 'App',
@@ -93,6 +97,24 @@ export default {
     EDucation,
     LAnguage
   },
+  methods: {
+    createCV () {
+            window.scrollTo(0, 0);
+            setTimeout(function(){ 
+                html2canvas(document.getElementsByClassName('CV')[0]).then(function(canvas) {
+                const a = document.createElement('a');
+                document.body.appendChild(a);
+                a.href = canvas.toDataURL('image/jpeg', 1);
+                a.download = "CV image.jpg";
+                a.click();
+                document.body.removeChild(a);
+              });
+            }, 1500);
+            
+
+           
+        }
+  }
 }
 </script>
 

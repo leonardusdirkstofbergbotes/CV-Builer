@@ -79,7 +79,6 @@ export default {
 <style scoped>
 .CV {
     flex: 2;
-    margin: 10px;
     border: 1px solid rgb(134, 134, 134);
     border-radius: 7px;
     height: max-content;

@@ -23,11 +23,12 @@
                 :class="[$parent.lang.language === '' ? 'normal' : 'noGo']">Next section
             </button>
         </div>
-
+        
     </div>
 </template>
 
 <script>
+
 export default {
     name: 'language',
     data () {
@@ -38,7 +39,7 @@ export default {
 
     methods: {
         nextPage: function() {
-            this.$parent.page = '';
+            this.$parent.page = 'done';
             $(this.$parent.prog).animate({
                 width: '+=12.5%'
             }, 500);
@@ -62,6 +63,7 @@ export default {
             this.$parent.lang.language = '';
             this.$parent.lang.level = '';
         }
+
     },
 
     computed: {
