@@ -9,8 +9,8 @@
             <button type="button" @click="getMedia" class="snap right">Take a Selfie</button>
         </div>
         
-        <video autoplay class='feed' v-if="$parent.canvas === 'yes'"></video>
-        <button class="snap" v-if="$parent.canvas === 'yes'" @click="takePicture">Snap</button>
+        <video autoplay class='feed' v-if="$parent.canvas === 'yes' && $parent.snap === 'no'" ></video>
+        <button class="snap" v-if="$parent.canvas === 'yes' && $parent.snap === 'no'" @click="takePicture">Snap</button>
             
         <div class="inputBox">
             <label for="name">NAME:</label>
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
     name: 'personal',
@@ -64,24 +63,9 @@ export default {
             reader.readAsDataURL(event.target.files[0]);
         },
 
-        // onFileSelected(event) {
-        //     this.selectedFile = event.target.files[0];
-        //     console.log(event.target.files);
-        // },
-
-        // onUpload() {
-        //     const fd = new FormData();
-        //     fd.append('image', this.selectedFile, this.selectedFile.name)
-        //     // axios.post('../handlers/imgUpload.php', fd)
-        //     //     .then(res => {
-        //     //         console.log(res);
-        //     //     })
-        // },
-
         getMedia() {
             this.$parent.canvas = 'yes';
             if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
-                console.log('hasMedia');
                 // let constraints = {
                 //     video: {
                 //         width: {
@@ -98,9 +82,10 @@ export default {
                 // } // constraints ENDS
                 navigator.mediaDevices.getUserMedia({video: true}).then(stream => {
                     
-                    const videoPlayer = document.querySelector("video");
+                    var videoPlayer = document.querySelector("video");
                     videoPlayer.srcObject = stream; 
                     videoPlayer.play(); 
+                    window.value = videoPlayer;
                 }); // then ENDS
               } // if ENDS
         },
@@ -114,6 +99,15 @@ export default {
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = 'high';
             ctx.drawImage(document.querySelector('video'), 0, 0, picture.width, picture.height);
+            // window.value.srcObject = '';
+            navigator.mediaDevices.getUserMedia({video: true}).then(stream => {
+                    var videoPlayer = document.querySelector("video");
+                    videoPlayer.srcObject = stream; 
+                    stream.getTracks().forEach(function(track) {
+                        track.stop();
+                    });
+                   this.$parent.snap = 'yes';
+            }); // then ENDS
             
           }
     }

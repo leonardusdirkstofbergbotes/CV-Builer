@@ -14,7 +14,6 @@
       <EXperience />
       <EDucation />
       <LAnguage />
-      <DOne />
       <CV />
       <button @click="createCV">Create JPG</button>
     </div>
@@ -45,6 +44,7 @@ export default {
         page: '',
         cam: '',
         canvas: 'no',
+        snap: 'no',
         image: '',
         name: '',
         surname: '',
