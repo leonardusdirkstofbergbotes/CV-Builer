@@ -124,6 +124,7 @@ export default {
     padding: 7px;
     font-size: 18px;
     border-radius: 4px;
+    margin: auto;
 }
 
 .snap:active {
