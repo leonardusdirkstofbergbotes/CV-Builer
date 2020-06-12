@@ -97,7 +97,7 @@ export default {
     display: flex;
     flex-direction: column;
     flex: 1;
-    font-size: 50px;
+    font-size: 5vw;
     align-items: flex-start;
 }
 
@@ -107,12 +107,11 @@ export default {
 }
 
 .imageBox img {
-    width: 100%;
+    width: 12vw;
 }
 
 canvas {
-    height: 200px;
-    width: 250px;
+    width: 15vw;
 }
 
 .contactBox {
@@ -120,9 +119,11 @@ canvas {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow-wrap: break-word;
 }
 
 .contactBox b {
+    font-size: 2.1vh;
     font-weight: 700;
     text-decoration: underline;
     text-decoration-style: solid;
@@ -131,6 +132,7 @@ canvas {
 }
 
 .contactBox span {
+    font-size: 1.8vh;
     text-align: justify;
     display: flex;
     font-weight: 200;
@@ -146,6 +148,7 @@ canvas {
 .summary {
     padding: 10px;
     font-style: normal;
+    text-align: left;
 }
 
 .skills {
