@@ -72,6 +72,7 @@ export default {
             maximumAge: 0 
             }) // returns a promise (or a response)   
             .then(coordinates => {
+                console.log(coordinates);
                 axios({ method: "GET", "url": "http://open.mapquestapi.com/geocoding/v1/reverse?key=HS045Czf3jYTdhAdX3Kn9AG0VaAQc8rp&location="+coordinates.lat+","+coordinates.lng+"&includeRoadMetadata=true&includeNearestIntersection=true" }).then(result => {
                     let obj = result.data.results[0].locations[0];
                     this.$parent.street = obj.street;
